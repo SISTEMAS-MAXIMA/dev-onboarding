@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onboarding — MAXIMA Dev Team</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #13131a;
+    --surface-2: #1a1a24;
+    --surface-3: #22222e;
+    --border: rgba(255,255,255,0.06);
+    --text: #e8e8ec;
+    --text-dim: #7a7a8c;
+    --accent: #6366f1;
+    --accent-soft: rgba(99,102,241,0.12);
+    --green: #22c55e;
+    --green-soft: rgba(34,197,94,0.12);
+    --amber: #f59e0b;
+    --amber-soft: rgba(245,158,11,0.12);
+    --red: #ef4444;
+    --red-soft: rgba(239,68,68,0.12);
+    --cyan: #06b6d4;
+    --cyan-soft: rgba(6,182,212,0.12);
+    --pink: #ec4899;
+    --pink-soft: rgba(236,72,153,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .mono { font-family: 'Space Mono', monospace; }
+
+  /* ═══ HERO ═══ */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    padding: 2rem;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 600px 400px at 30% 20%, rgba(99,102,241,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 500px 300px at 70% 80%, rgba(236,72,153,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(99,102,241,0.2);
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s 0.1s ease both;
+    background: linear-gradient(135deg, #fff 0%, #a5b4fc 50%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero p {
+    font-size: 1.15rem;
+    color: var(--text-dim);
+    max-width: 560px;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    border-radius: 12px;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .hero-cta:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 30px rgba(99,102,241,0.35);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    animation: bounce 2s infinite;
+    color: var(--text-dim);
+    font-size: 1.5rem;
+  }
+
+  /* ═══ SECTIONS ═══ */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .section-label .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .section h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+  }
+
+  .section .lead {
+    font-size: 1.05rem;
+    color: var(--text-dim);
+    max-width: 640px;
+    margin-bottom: 3rem;
+  }
+
+  /* ═══ TEAM GRID ═══ */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .team-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .team-card:hover {
+    border-color: rgba(99,102,241,0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  }
+
+  .team-card .role-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .team-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .team-card .subtitle {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    margin-bottom: 0.8rem;
+  }
+
+  .team-card .scope {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    border-top: 1px solid var(--border);
+    padding-top: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .tag-pm { background: var(--amber-soft); color: var(--amber); }
+  .tag-front { background: var(--pink-soft); color: var(--pink); }
+  .tag-back { background: var(--cyan-soft); color: var(--cyan); }
+  .tag-devops { background: var(--green-soft); color: var(--green); }
+
+  /* ═══ STACK CARDS ═══ */
+  .stack-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .stack-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+  }
+
+  .stack-card:hover {
+    border-color: rgba(99,102,241,0.25);
+    background: var(--surface-2);
+  }
+
+  .stack-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+  }
+
+  .stack-card h4 { font-size: 0.95rem; font-weight: 700; }
+  .stack-card p { font-size: 0.78rem; color: var(--text-dim); }
+
+  /* ═══ ARCHITECTURE DIAGRAM ═══ */
+  .arch-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .arch-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(99,102,241,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .arch-layers {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    position: relative;
+  }
+
+  .arch-layer {
+    display: flex;
+    align-items: stretch;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .arch-box {
+    flex: 1;
+    min-width: 150px;
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    text-align: center;
+    transition: all 0.2s;
+  }
+
+  .arch-box:hover {
+    border-color: rgba(99,102,241,0.3);
+    background: var(--surface-3);
+  }
+
+  .arch-box .arch-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.35rem;
+  }
+
+  .arch-box .arch-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  .arch-box .arch-detail {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    margin-top: 0.25rem;
+  }
+
+  .arch-connector {
+    display: flex;
+    justify-content: center;
+    color: var(--text-dim);
+    font-size: 1.2rem;
+    opacity: 0.4;
+  }
+
+  /* ═══ MODULES LIST ═══ */
+  .modules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .module-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .module-card:hover {
+    border-color: rgba(99,102,241,0.25);
+    transform: translateY(-2px);
+  }
+
+  .module-icon-wrap {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .module-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .module-card p { font-size: 0.78rem; color: var(--text-dim); line-height: 1.5; }
+  .module-card .route {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: var(--surface-3);
+    font-size: 0.68rem;
+    color: var(--accent);
+  }
+
+  /* ═══ CHECKLIST ═══ */
+  .checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 700px;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+
+  .check-item:hover { border-color: rgba(99,102,241,0.2); }
+
+  .check-item.done {
+    border-color: rgba(34,197,94,0.3);
+    background: var(--green-soft);
+  }
+
+  .check-item.done .check-circle {
+    background: var(--green);
+    border-color: var(--green);
+    color: #fff;
+  }
+
+  .check-circle {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    color: transparent;
+  }
+
+  .check-item .check-text { font-weight: 600; font-size: 0.9rem; }
+  .check-item .check-sub { font-size: 0.75rem; color: var(--text-dim); }
+
+  /* ═══ LINKS GRID ═══ */
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .link-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    border-radius: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.3s ease;
+  }
+
+  .link-card:hover {
+    border-color: rgba(99,102,241,0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  }
+
+  .link-icon {
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .link-card h4 { font-size: 0.88rem; font-weight: 700; }
+  .link-card p { font-size: 0.72rem; color: var(--text-dim); margin-top: 2px; }
+
+  /* ═══ PROGRESS BAR ═══ */
+  .progress-bar-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    z-index: 1000;
+    background: rgba(255,255,255,0.03);
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--pink));
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+
+  /* ═══ DB SCHEMA PREVIEW ═══ */
+  .schema-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .schema-chip {
+    padding: 0.6rem 1rem;
+    border-radius: 10px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    font-size: 0.75rem;
+    transition: all 0.2s;
+  }
+
+  .schema-chip:hover {
+    border-color: rgba(99,102,241,0.25);
+  }
+
+  .schema-chip .schema-name {
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .schema-chip .schema-count {
+    color: var(--text-dim);
+    font-size: 0.68rem;
+  }
+
+  /* ═══ ANIMATIONS ═══ */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ═══ RESPONSIVE ═══ */
+  @media (max-width: 768px) {
+    .section { padding: 3rem 1.25rem; }
+    .arch-layer { flex-direction: column; }
+    .team-grid { grid-template-columns: 1fr; }
+    .modules-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ═══ DIVIDER ═══ */
+  .divider {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .divider hr {
+    border: none;
+    height: 1px;
+    background: var(--border);
+  }
+</style>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div class="progress-bar-wrap">
+  <div class="progress-bar-fill" id="progressBar"></div>
+</div>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-badge">
+    <i class="bi bi-stars"></i> Onboarding · Equipo de Desarrollo
+  </div>
+  <h1>Bienvenido a<br>SISTEMA MAXIMA</h1>
+  <p>
+    El ERP interno que potencia la logística, compras, inventario y ventas de MAXIMA.
+    Un sistema moderno, modular y escalable — construido desde cero por nuestro equipo.
+  </p>
+  <button class="hero-cta" onclick="document.getElementById('team').scrollIntoView({behavior:'smooth'})">
+    <i class="bi bi-rocket-takeoff-fill"></i> Empezar el recorrido
+  </button>
+  <div class="scroll-hint">
+    <i class="bi bi-chevron-double-down"></i>
+  </div>
+</section>
+
+<!-- ═══════════ TEAM ═══════════ -->
+<section class="section fade-in" id="team">
+  <div class="section-label"><div class="dot"></div> Paso 01 — Conoce al equipo</div>
+  <h2>El #Team</h2>
+  <p class="lead">Cada persona tiene un área de responsabilidad clara. Si tienes dudas, sabrás a quién acudir.</p>
+
+  <div class="team-grid">
+    <div class="team-card">
+      <span class="role-tag tag-pm">PM · Arquitectura · DevOps</span>
+      <h3>⭐ Rebeca Evangelista</h3>
+      <div class="subtitle">Líder técnico del proyecto</div>
+      <div class="scope">
+        <strong>Acude a mí para:</strong> Dónde hostear cosas, estructura de BD, decisiones de negocio, flujos y aprobaciones.
+      </div>
+    </div>
+    <div class="team-card">
+      <span class="role-tag tag-front">Frontend · Blazor</span>
+      <h3>🌸 Ricardo Montalvo</h3>
+      <div class="subtitle">Desarrollador UI/UX</div>
+      <div class="scope">
+        <strong>Acude a mí para:</strong> Componentes de UI, estado del navegador, diseño visual.
+      </div>
+    </div>
+    <div class="team-card">
+      <span class="role-tag tag-back">Backend · .NET</span>
+      <h3>❄️ Elizabeth Cuevas</h3>
+      <div class="subtitle">Desarrolladora Backend</div>
+      <div class="scope">
+        <strong>Acude a mí para:</strong> Endpoints, lógica de negocio, Dapper/EF Core.
+      </div>
+    </div>
+    <div class="team-card">
+      <span class="role-tag tag-devops">Backend · DevOps · .NET</span>
+      <h3>🌟 Adrián Martínez</h3>
+      <div class="subtitle">Backend & Infraestructura</div>
+      <div class="scope">
+        <strong>Acude a mí para:</strong> Estructura de la API, integración con BD, Auth, integraciones con terceros, soporte del servidor.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════ TECH STACK ═══════════ -->
+<section class="section fade-in" id="stack">
+  <div class="section-label"><div class="dot"></div> Paso 02 — Stack tecnológico</div>
+  <h2>Nuestras herramientas</h2>
+  <p class="lead">Todo el sistema está construido desde cero con Microsoft .NET y PostgreSQL.</p>
+
+  <div class="stack-row">
+    <div class="stack-card">
+      <div class="stack-icon" style="background:var(--accent-soft);color:var(--accent);">
+        <i class="bi bi-window-stack"></i>
+      </div>
+      <h4>Blazor WebAssembly</h4>
+      <p>Frontend SPA corriendo en el navegador con C#</p>
+    </div>
+    <div class="stack-card">
+      <div class="stack-icon" style="background:var(--cyan-soft);color:var(--cyan);">
+        <i class="bi bi-gear-wide-connected"></i>
+      </div>
+      <h4>ASP.NET Core 8</h4>
+      <p>API REST con controllers, Dapper + EF Core</p>
+    </div>
+    <div class="stack-card">
+      <div class="stack-icon" style="background:var(--green-soft);color:var(--green);">
+        <i class="bi bi-database-fill-gear"></i>
+      </div>
+      <h4>PostgreSQL 17</h4>
+      <p>BD relacional con schemas organizados por dominio</p>
+    </div>
+    <div class="stack-card">
+      <div class="stack-icon" style="background:var(--amber-soft);color:var(--amber);">
+        <i class="bi bi-hdd-rack-fill"></i>
+      </div>
+      <h4>Dell T5600</h4>
+      <p>Servidor físico con Windows Server 2022 + WSL2</p>
+    </div>
+    <div class="stack-card">
+      <div class="stack-icon" style="background:var(--pink-soft);color:var(--pink);">
+        <i class="bi bi-github"></i>
+      </div>
+      <h4>GitHub</h4>
+      <p>Repositorio privado: SISTEMAS-MAXIMA/MAXIMAERP</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════ ARCHITECTURE ═══════════ -->
+<section class="section fade-in" id="arch">
+  <div class="section-label"><div class="dot"></div> Paso 03 — Arquitectura</div>
+  <h2>Cómo está construido</h2>
+  <p class="lead">El sistema sigue una arquitectura de 3 capas con Blazor WASM como cliente y ASP.NET Core como API.</p>
+
+  <div class="arch-container">
+    <div class="arch-layers">
+
+      <div class="arch-layer">
+        <div class="arch-box" style="border-color:rgba(236,72,153,0.25);">
+          <div class="arch-label">Capa de Presentación</div>
+          <div class="arch-name" style="color:var(--pink);">Blazor WebAssembly</div>
+          <div class="arch-detail">Componentes .razor · IndexedDB · JWT Cookies</div>
+        </div>
+      </div>
+
+      <div class="arch-connector"><i class="bi bi-arrow-down-short"></i></div>
+
+      <div class="arch-layer">
+        <div class="arch-box" style="border-color:rgba(6,182,212,0.25);">
+          <div class="arch-label">Capa de API</div>
+          <div class="arch-name" style="color:var(--cyan);">ASP.NET Core Web API</div>
+          <div class="arch-detail">Controllers REST · DTOs · Dapper + EF Core · Google OAuth</div>
+        </div>
+      </div>
+
+      <div class="arch-connector"><i class="bi bi-arrow-down-short"></i></div>
+
+      <div class="arch-layer">
+        <div class="arch-box" style="border-color:rgba(34,197,94,0.25);">
+          <div class="arch-label">Capa de Datos</div>
+          <div class="arch-name" style="color:var(--green);">PostgreSQL 17</div>
+          <div class="arch-detail">7 schemas · 60+ tablas · Stored procedures</div>
+        </div>
+      </div>
+
+      <div class="arch-connector"><i class="bi bi-arrow-down-short"></i></div>
+
+      <div class="arch-layer">
+        <div class="arch-box" style="flex:1; border-color:rgba(245,158,11,0.25);">
+          <div class="arch-label">Infraestructura</div>
+          <div class="arch-name" style="color:var(--amber);">Dell T5600 · WSL2 · Docker · Cloudflare Tunnel</div>
+          <div class="arch-detail">Windows Server 2022 · Nginx reverse proxy · SSL automático</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════ DATABASE ═══════════ -->
+<section class="section fade-in" id="db">
+  <div class="section-label"><div class="dot"></div> Paso 04 — Base de datos</div>
+  <h2>Schemas de PostgreSQL</h2>
+  <p class="lead">La base de datos está organizada por dominio de negocio. Cada schema agrupa tablas relacionadas.</p>
+
+  <div class="schema-grid">
+    <div class="schema-chip">
+      <span class="schema-name">product_catalog</span>
+      <span class="schema-count">~30 tablas · Productos, marcas, atributos, Amazon fees, importación</span>
+    </div>
+    <div class="schema-chip">
+      <span class="schema-name">purchasing</span>
+      <span class="schema-count">4 tablas · Órdenes de compra, detalle, historial</span>
+    </div>
+    <div class="schema-chip">
+      <span class="schema-name">purchase_tracking</span>
+      <span class="schema-count">5 tablas · Instancias virtuales, incidencias, tracking</span>
+    </div>
+    <div class="schema-chip">
+      <span class="schema-name">inventory</span>
+      <span class="schema-count">6 tablas · Instancias físicas, entradas/salidas, auditoría</span>
+    </div>
+    <div class="schema-chip">
+      <span class="schema-name">ecommerce_operations</span>
+      <span class="schema-count">6 tablas · Business units, canales de venta, modalidades</span>
+    </div>
+    <div class="schema-chip">
+      <span class="schema-name">user_management</span>
+      <span class="schema-count">3 tablas · Usuarios, roles, asignaciones</span>
+    </div>
+    <div class="schema-chip">
+      <span class="schema-name">app_versions</span>
+      <span class="schema-count">1 tabla · Control de versiones de la app</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════ MODULES ═══════════ -->
+<section class="section fade-in" id="modules">
+  <div class="section-label"><div class="dot"></div> Paso 05 — Módulos del ERP</div>
+  <h2>Las pantallas del sistema</h2>
+  <p class="lead">El ERP tiene módulos para cada área operativa. Estas son las rutas principales que encontrarás en el código.</p>
+
+  <div class="modules-grid">
+    <div class="module-card">
+      <div class="module-icon-wrap" style="background:var(--accent-soft);color:var(--accent);">
+        <i class="bi bi-box-seam"></i>
+      </div>
+      <div>
+        <h4>Productos</h4>
+        <p>Formulario de 12 pasos para registrar productos con ASIN, precios, atributos, importación, logística.</p>
+        <span class="route mono">/form-tab-1 → /form-tab-12</span>
+      </div>
+    </div>
+    <div class="module-card">
+      <div class="module-icon-wrap" style="background:var(--green-soft);color:var(--green);">
+        <i class="bi bi-cart-plus"></i>
+      </div>
+      <div>
+        <h4>Compras</h4>
+        <p>Registro de órdenes de compra con líneas de producto, tracking, y logística de envío.</p>
+        <span class="route mono">/purchasing-details</span>
+      </div>
+    </div>
+    <div class="module-card">
+      <div class="module-icon-wrap" style="background:var(--amber-soft);color:var(--amber);">
+        <i class="bi bi-inbox-fill"></i>
+      </div>
+      <div>
+        <h4>Recepción</h4>
+        <p>Verificación física en Texas Hub con semáforo de cantidades, incidencias y centro de tareas.</p>
+        <span class="route mono">/order-check</span>
+      </div>
+    </div>
+    <div class="module-card">
+      <div class="module-icon-wrap" style="background:var(--pink-soft);color:var(--pink);">
+        <i class="bi bi-calculator"></i>
+      </div>
+      <div>
+        <h4>Rentabilidad</h4>
+        <p>Calculadora FBA/FBM/ONSITE con referral fees, financiamiento flexible y auditoría paso a paso.</p>
+        <span class="route mono">/rentabilidad</span>
+      </div>
+    </div>
+    <div class="module-card">
+      <div class="module-icon-wrap" style="background:var(--cyan-soft);color:var(--cyan);">
+        <i class="bi bi-list-task"></i>
+      </div>
+      <div>
+        <h4>Centro de Tareas</h4>
+        <p>Gestión de incidencias y discusiones entre departamentos con prioridades y resolución.</p>
+        <span class="route mono">/task-center</span>
+      </div>
+    </div>
+    <div class="module-card">
+      <div class="module-icon-wrap" style="background:var(--red-soft);color:var(--red);">
+        <i class="bi bi-grid-3x3-gap"></i>
+      </div>
+      <div>
+        <h4>Catálogo</h4>
+        <p>Vista paginada de todos los productos con filtros avanzados por checklist de completitud.</p>
+        <span class="route mono">/Products-catalog</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════ CHECKLIST ═══════════ -->
+<section class="section fade-in" id="checklist">
+  <div class="section-label"><div class="dot"></div> Paso 06 — Tu primera semana</div>
+  <h2>Checklist de onboarding</h2>
+  <p class="lead">Completa estos pasos durante tus primeros días. Haz clic para marcar cada uno.</p>
+
+  <div class="checklist" id="checklistContainer">
+    <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-circle"><i class="bi bi-check-lg"></i></div>
+      <div>
+        <div class="check-text">Clonar el repositorio</div>
+        <div class="check-sub">git clone desde github.com/SISTEMAS-MAXIMA/MAXIMAERP</div>
+      </div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-circle"><i class="bi bi-check-lg"></i></div>
+      <div>
+        <div class="check-text">Configurar el entorno de desarrollo</div>
+        <div class="check-sub">Visual Studio 2022+ · .NET 8 SDK · PostgreSQL local o conexión al servidor</div>
+      </div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-circle"><i class="bi bi-check-lg"></i></div>
+      <div>
+        <div class="check-text">Correr el proyecto en localhost</div>
+        <div class="check-sub">API en https://localhost:7030 · Web en https://localhost:7115</div>
+      </div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-circle"><i class="bi bi-check-lg"></i></div>
+      <div>
+        <div class="check-text">Iniciar sesión con Google OAuth</div>
+        <div class="check-sub">Tu cuenta de Google debe estar autorizada en el proyecto MAXIMA Wiki</div>
+      </div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-circle"><i class="bi bi-check-lg"></i></div>
+      <div>
+        <div class="check-text">Navegar el formulario de productos</div>
+        <div class="check-sub">Recorre los 12 pasos (/form-tab-1 al 12) para entender el flujo completo</div>
+      </div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-circle"><i class="bi bi-check-lg"></i></div>
+      <div>
+        <div class="check-text">Revisar la estructura de la base de datos</div>
+        <div class="check-sub">Conectar a PostgreSQL y explorar los 7 schemas del diccionario</div>
+      </div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-circle"><i class="bi bi-check-lg"></i></div>
+      <div>
+        <div class="check-text">Leer la documentación en Outline</div>
+        <div class="check-sub">docs.sistemamaxima.com — Infraestructura, Backend, Frontend, Producto</div>
+      </div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-circle"><i class="bi bi-check-lg"></i></div>
+      <div>
+        <div class="check-text">Hacer tu primer commit</div>
+        <div class="check-sub">Un fix pequeño o mejora de UI — tu bautizo en el codebase</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════ LINKS ═══════════ -->
+<section class="section fade-in" id="links">
+  <div class="section-label"><div class="dot"></div> Paso 07 — Enlaces rápidos</div>
+  <h2>Accesos directos</h2>
+  <p class="lead">Todo lo que necesitas al alcance de un clic.</p>
+
+  <div class="links-grid">
+    <a href="https://github.com/SISTEMAS-MAXIMA/MAXIMAERP" target="_blank" class="link-card">
+      <div class="link-icon" style="background:var(--surface-3);color:var(--text);">
+        <i class="bi bi-github"></i>
+      </div>
+      <div>
+        <h4>Repositorio GitHub</h4>
+        <p>SISTEMAS-MAXIMA/MAXIMAERP (privado)</p>
+      </div>
+    </a>
+    <a href="https://api.sistemamaxima.com" target="_blank" class="link-card">
+      <div class="link-icon" style="background:var(--green-soft);color:var(--green);">
+        <i class="bi bi-globe"></i>
+      </div>
+      <div>
+        <h4>API Producción</h4>
+        <p>api.sistemamaxima.com</p>
+      </div>
+    </a>
+    <a href="https://docs.sistemamaxima.com" target="_blank" class="link-card">
+      <div class="link-icon" style="background:var(--accent-soft);color:var(--accent);">
+        <i class="bi bi-book"></i>
+      </div>
+      <div>
+        <h4>Wiki / Documentación</h4>
+        <p>docs.sistemamaxima.com (Outline)</p>
+      </div>
+    </a>
+    <a href="https://calc.sistemamaxima.com" target="_blank" class="link-card">
+      <div class="link-icon" style="background:var(--amber-soft);color:var(--amber);">
+        <i class="bi bi-calculator"></i>
+      </div>
+      <div>
+        <h4>Calculadora FBA</h4>
+        <p>calc.sistemamaxima.com</p>
+      </div>
+    </a>
+    <a href="https://localhost:7030" class="link-card">
+      <div class="link-icon" style="background:var(--cyan-soft);color:var(--cyan);">
+        <i class="bi bi-terminal"></i>
+      </div>
+      <div>
+        <h4>API Desarrollo</h4>
+        <p>https://localhost:7030</p>
+      </div>
+    </a>
+    <a href="mailto:soporte@sistemamaxima.com" class="link-card">
+      <div class="link-icon" style="background:var(--red-soft);color:var(--red);">
+        <i class="bi bi-life-preserver"></i>
+      </div>
+      <div>
+        <h4>Soporte Técnico</h4>
+        <p>soporte@sistemamaxima.com</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<section style="text-align:center; padding: 4rem 2rem 3rem; color: var(--text-dim); font-size: 0.8rem;">
+  <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:0.5rem;">
+    <span class="mono" style="font-weight:700;color:var(--text);font-size:1rem;">&lt;/&gt;</span>
+    <span style="font-weight:700;color:var(--text);font-size:1.1rem;">SISTEMA MAXIMA</span>
+  </div>
+  <p>Equipo de Desarrollo · Documentación Interna</p>
+  <p style="margin-top:0.5rem;opacity:0.5;">Microsoft .NET · PostgreSQL · Blazor WebAssembly</p>
+</section>
+
+<script>
+  // Scroll progress bar
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const progress = (scrollTop / scrollHeight) * 100;
+    document.getElementById('progressBar').style.width = progress + '%';
+  });
+
+  // Intersection Observer for fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Checklist toggle
+  function toggleCheck(el) {
+    el.classList.toggle('done');
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const items = document.querySelectorAll('.check-item');
+    const done = document.querySelectorAll('.check-item.done');
+    // Could store in localStorage for persistence
+  }
+</script>
+
+</body>
+</html>
